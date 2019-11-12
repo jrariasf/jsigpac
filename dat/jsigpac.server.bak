@@ -1,0 +1,88 @@
+
+##############################################################################
+##############################################################################
+##
+## En ocasiones, la conexión con el servidor nacional falla temporalmente o
+## bien nuestra IP es bloqueda temporalmente. 
+## En estos casos, no sólo deja de funcionar el jSIGPAC sino que tampoco 
+## funcionará el visor a través del navegador. 
+## Antes de nada comprueba si te funciona correctamente la conexión a:
+## http://sigpac.mapa.es/fega/visor/
+##
+## Por todo ello, en caso de querer trabajar con un servidor regional en 
+## lugar de usar el servidor nacional deberemos hacer lo siguente:
+## - Que la primera línea de este fichero contenga alguna de las direcciones http
+##   que facilito a continuación. Es decir, el jSIGPAC cogerá como servidor el que
+##   aparezca en la primera línea que empiece por http://....
+##   (Hay que tener en cuenta que inicialmente todas las líneas empiezan por "# ")
+##
+## *Nota: Faltan algunos servidores regionales. Poco a poco he ido añadiendo más
+##        pero todavía faltan. Por ejemplo el de Madrid (trescantoss). Si estáis
+##        interesados en utilizar algún servidor nuevo, pues me lo decís y cuando
+##        tenga un ratillo lo intento añadir. Y si además de darme el link al
+##        servidor en cuestión, me pasáis ejemplos de peticiones que se hagan a 
+##        dicho servidor, pues mejor.
+##
+##############################################################################
+##############################################################################
+
+
+# Servidor nacional:
+# http://sigpac.mapa.es/tilesserver/
+
+# Castilla y León:
+# http://sigpacdatos.jcyl.es/tilesserver/
+# Castilla y León (visor v3.0):
+# http://217.71.16.147/imageserver/
+
+# Galicia:
+# http://www.xunta.es/conselle/ag/fogga/sixpac/servidorimagenes/
+
+# Principado de Asturias:
+# http://sigpac.princast.es/imageserver/
+
+# País Vasco:
+# http://62.99.86.165/tilesserver2008/
+# País Vasco: (visor 3.0)
+# http://62.99.86.165/imagenes/
+
+# Aragón:
+# http://sigpac1.aragob.es/imageserver/
+
+# Castilla la Mancha:
+# http://sigpac.jccm.es/servidorimagenes/
+
+# Murcia:
+# http://sigpac.carm.es/servidorimagenes/
+
+# Canarias:
+# http://195.57.95.89/sigpac/tilesserver/
+
+# Canarias SITCAN:
+# http://195.57.95.86/imgsvr/ecw.aspx?
+
+# Madrid
+# http://www.madrid.org/servidorbaldosas/
+
+# Madrid:  ( ¡¡ NO FUNCIONA !! )
+# http://www.trescantossa.com/navegar/asp/mime.aspx?
+
+# La Rioja:
+# http://sigpac.larioja.org/
+
+# IGN: ( ¡¡ Por ahora no acaba de funcionar correctamente !! )
+# http://www.idee.es/wms/IDEE-Base/IDEE-Base?
+# http://idee.unizar.es/wms/MTN-Raster/MTN-Raster?
+
+# Andalucía:                                             
+# http://desdeelcielo.andaluciajunta.es/desdeelcielo/
+
+# Navarra:
+# http://sitna.tracasa.es/navegar/asp/mime.aspx?
+
+# Extremadura
+# http://62.175.245.28/tilesserver11/
+
+# Generalitat Valenciana
+# http://llagosta.cma.gva.es/
+

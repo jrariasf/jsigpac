@@ -1,0 +1,48 @@
+##   En este fichero se puede definir el formato del nombre del fichero que
+##   se dará al mapa cuando no se le da un valor concreto.
+##   La forma de especificar el formato será poniendo una línea como la que
+##   aparece al final de este fichero y que tiene la forma siguiente:
+##
+##   formato=#....#...#...#
+##
+##   - En primer lugar, aparecerá siempre al comienzo de una línea "formato="
+##    (sin las comillas).
+##   - A continuación se definirá cómo se nombrará el mapa de forma que se
+##     utilizará como separador el carácter "#". No olvidarse que al menos
+##     habrá un "#" al principio y otro al final.
+##   - Si queremos que un texto aparezca de forma literal en el nombre del
+##     fichero, lo entrecomillaremos e irá situado entre dos caracteres
+##     separadores (#).
+##   - Si no se entrecomilla, se interpretará como un campo especial y los
+##     TOKENS que podrán utilizarse son:
+##
+##     TOKENs            Valores posibles
+##     ============================================
+##     servidor         (ESP, CYL, RIO, ...)
+##     datum_entrada    Datum de los datos de entrada (ED50, WGS84)
+##     tipo_mapa        (ORTO, TOPO25, TOPO etc...)
+##     huso             (27, 28, 29, 30 y 31)
+##     qx               Valor de la X de la esquina superior izquierda
+##     qy               Valor de la Y de la esquina superior izquierda
+##     x                Valor de la X del centro del mapa
+##     y                Valor de la Y del centro del mapa
+##     anchura_total    Anchura en metros abarcada por el mapa
+##     altura_total     Altura en metros abarcada por el mapa
+##     resolucion       Resolución del mapa
+##     filas            Número de cuadrantes que forman el mapa verticamente
+##     columnas         Número de cuadrantes que forman el mapa horizontalmente
+##     datum_calibrar   Datum de los ficheros de calibracion (ED50, WGS84)
+##     compresion       Factor de compresion JPEG (1..100)
+##
+##     (El TOKEN será luego substituido por su valor correspondiente)
+##
+##   * EJEMPLO:  
+##   Supongamos que queremos que el nombre del mapa sea algo como:
+##   Valladolid_ORTO_h30_365000_4760000_A10000_H5000_r2
+##
+##   Entonces, en el fichero "dat\jsigpac.nombre" deberíamos poner una linea tal que así:
+##   formato=#"Valladolid_"#tipo_mapa#"_h"#huso#"_"#qx#"_"#qy#"_A"#anchura_total#"_H"#altura_total#"_r"#resolucion#
+##
+
+
+formato=#tipo_mapa#"_"#servidor#"_r"#resolucion#"_h"#huso#"_qx"#qx#"_qy"#qy#"_A"#anchura_total#"_H"#altura_total#

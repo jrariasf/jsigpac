@@ -1,0 +1,28 @@
+OJO !!   La función de cambio de datum sólo es válida para Península y Baleares y puede que también para Canarias
+
+[Se usa el punto como separador decimal]
+
+- La forma de trabajar con la calculadora es: Lo primero que hay que especificar es
+  el datum de entrada (ED50 o WGS84). Y lo siguiente será dar las coordenadas del punto.
+  Dichas coordenadas pueden darse en tres formatos diferentes (UTM, geográficas decimal
+  y geográficas sexagesimal).
+- El panel superior es el panel de entrada.
+- El panel inferior es el panel de salida donde se obtendrán los resultados
+  del cambio de datum.
+- En el panel superior (entrada) se especifica el datum de los datos de entrada que
+  podrá ser ED50 o WGS84. Recordar que el WGS84 a efectos prácticos es como el ETRS89.
+  El datum de salida será siempre el contrario al datum de entrada.
+  El cambio de datum se produce al pulsar el botón "CONVERTIR".
+
+Funciones de la calculadora:
+===========================
+
+- Cambio de datum de ED50 a WGS84
+- Cambio de datum de WGS84 a ED50
+- Los coordenadas origen pueden ser introducidas en tres formatos diferentes: 
+  - coordenadas UTM (X, Y, elevación, hemisferio, zona o huso)
+  - geográficas en decimal (latitud y longitud)
+  - geográficas en sexagesimal (latitud y longitud en grados, minutos y segundos)
+    (Un valor negativo en la longitud se indica con "W" y un valor positivo con "E")
+- Dadas las coordenadas de un punto, es posible obtener los valores de las
+  coordenadas de ese mismo punto en los diferentes formatos (botón "completar").

@@ -1,0 +1,13 @@
+servidor: Nacional - España
+ORTO: false
+resolucion: 4
+escala: 25
+quitamanchas: false
+calibrar: true
+datum: WGS84
+solapamiento: false
+borrar_intermedios: true
+compresion: 75
+soloTrack: false
+mapasHorizontal: 1
+mapasVertical: 1

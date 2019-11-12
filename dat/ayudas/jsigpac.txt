@@ -1,0 +1,230 @@
+1.- Esquema de utilización en modo gráfico
+2.- Opciones en uso por consola (Para los que usen el ejecutable, substituir "java -Xmx800m JSigpac" por "jsigpac.exe")
+3.- Ejemplos desde consola
+
+1.- Antes de nada, un esquema paso a paso de cómo utilizar el jSIGPAC:
+
+- Seleccionas el servidor (Nacional, Castilla y León, Galicia, etc...);
+- Seleccionas el datum en el que irán las coordenadas UTM que posteriormente teclearás en X e Y. Normalmente, 
+  dejarlo como está, ya que según el servidor elegido, el valor del datum toma el valor adecuado en la mayoría 
+  de los casos.
+- Seleccionas el tipo de mapa: Ortofoto o Topográfico (en cuyo caso deberás elegir la escala: 1:25000, 1:200000, ...);
+- Seleccionas el huso: Canarias (28), Galicia (29), Cataluña y Baleares (31), resto de la Península (30)
+- Marcas la opciones "esquina" y "total".
+- Escribes las coordenadas UTM X e Y de la esquina superior izquierda del mapa total (en el datum ED50 que es el que te da el visor del SigPac);
+- Activas la casilla de generación de ficheros de calibración y además en "WGS84";
+- QuitaManchas desactivada;
+- Ahora, o bien pulsas en el botón "Esq Inf Der" para dar la coordenada UTM de la esquina inferior derecha o bien escribes el ancho total del mapa
+  en metros y si quieres también el alto del mapa;
+- Seleccionas la resolución deseada (0.5, 1, 2, 4, ....) metros/pixel;
+- Pulsas con el botón derecho del ratón sobre el botón "descargar" para que recalcule los valores de X, Y, ancho y alto que utilizará finalmente.
+- Das un nombre al mapa (si pulsas con el botón derecho del ratón donde pone "Fichero:" entonces te creará automáticamente un nombre de fichero);
+- Seleccionas la carpeta donde te dejará los ficheros de calibración y el mapa.
+- Pulsas el botón"Copiar Valores";
+- Eliges el factor de compresión JPEG;
+- Activas la casilla "Borrar ficheros intermedios";
+- Activas la casilla "Descargar y ensamblar";
+- Pulsas el botón "ensamblar";
+
+
+
+2.- Veamos ahora las posibles opciones para luego explicar detalladamente cada una de ellas junto
+con un ejemplo:
+
+La sintaxis general es:
+
+java [-Xmx200m] JSigpac [-d | -e | -x | -f | -ibp | -IBP | ficheroTrack_Ruta_Wpt | -help] [resto_de_opciones]
+
+-d:    Para descargar los mapas.
+-e:    Para ensamblar los mapas.
+-x:    Para descargar y ensamblar de un tirón (mismas opciones que la opción -d)
+-c:    Para generar unicamente los ficheros de calibracion (mismas opciones que la opción -d)
+-f:    Para descargar y ensamblar un mapa segun la informacion contenida en el fichero ".jsi"
+       que se pasa como argumento.  
+-ibp   Devuelve el indice IBP (solo devuelve el valor numerico).
+-IBP   Devuelve el informe completo del indice IBP.        
+ficheroTrack_Ruta_Wpt: Si como primer argumento se le pasa un fichero de track, ruta o waypoints
+       de Compe o Ozi o en formato GPX, se obtendra el mapa que lo contenga. Lo mejor es entrecomillar
+       el nombre del fichero. Ej: java JSigpac -f"C:\Mis Mapas\Valladolid\Track por pinares.plt"    
+-help: Ayuda
+
+
+Opciones para DESCARGAR mapas (-d o -x) o para CALIBRAR (-c):
+============================================================
+java JSigpac -d [-Sservidor] [-Ddatum] -mTIPOMAPA -hhuso [-q] -xX -yY <-Aancho_en_metros> 
+     <-Halto_en_metros> <-rRESOLUCION> [-c] [-w] [-s] [-fnom_fich] [-Ffich_formato] [-Yn | -Ys]
+      
+-Snombre_servidor  Servidor desde el que se realizaran las descargas. Por defecto se utilizará
+        el servidor nacional del SigPac. Ver más abajo los posibles valores.
+-Ddatum, donde datum puede ser "ED50" (valor por defecto) o "WGS84". Se refiere al datum en que
+        se dan las coordenadas al jSIGPAC. Por ejemplo, si estamos mirando las coordenadas en el
+        visor nacionaldel SigPac, a fecha de hoy (21-DIC-2007) están en el datum ED50. 
+        Pero, por ejemplo, en el servidor de Canarias las coordenadas aparecen en WGS84.
+-mTIPOMAPA, se especifica el tipo de mapa y/o escala, donde TIPOMAPA es:
+        ORTO: Ortofoto
+        TOPO25: Mapa a escala 1:25000
+        TOPO200: Mapa a escala 1:200000
+        TOPO1250: Mapa a escala 1:1250000
+        TOPO2000_T: Mapa a escala 1:2000000
+        TOPO2000: Mapa con relieves
+-hhuso, zona o uso del mapa:
+        28: para Canarias
+        29: Noroeste de España
+        31: Cataluña, Levante y Baleares
+        30: Resto de España
+-q  Indicamos que el punto de referencia para la descarga del mapa
+    es la esquina superior izquierda. Si no se indica este parámetro,
+    se considera que el punto de refencia sería el punto central.
+-xX Valor de la coordenada X UTM del punto de refencia.
+-yY Valor de la coordenada Y UTM del punto de refencia.
+-aancho_en_metros Ancho en metros de cada cuadrante.
+-Aancho_en_metros Ancho en metros del mapa final.
+-Halto_en_metros Alto en metros del mapa final
+-filFILAS Número de filas del mapa final.
+-colCOLUMNAS Número de columnas del mapa final.
+-rRESOLUCION: Resolucion del mapa en metros/pixel. Esta opcion es incompatible con "-fil" y "-col". 
+    Y debe utilizarse obligatoriamente la opción "-A" para especificar el ancho del mapa y si se 
+    desea la opción "-H" para especificar el alto en metros del mapa. 
+-c Genera los ficheros de calibración.
+-w Los ficheros de calibración se generan en el datum WGS84 (opción recomendada)
+-s Quita las marcas de aqua del Sigpac (obsoleta)
+-B Para que se borren los ficheros intermedios
+-Y Para evitar que el programa haga preguntas y en caso de hacerlas, responderlas de forma automática. Por ejemplo,
+   si intentamos hacer una descarga y el jSIGPAC detecta que ya hay cuadrantes descargados, preguntará si queremos 
+   sobreescribir lo que ya hay descargado. Pues con "-Ys" lo que hacemos es que no nos haga la pregunta y como
+   respuesta sobreescriba lo que ya esté descargado.
+-fnom_fich Especifica el nombre del fichero raíz para cada cuadrante. Si contiene espacios, hay
+           que entrecomillarlo.
+-Ffich_formato Especifica el fichero desde el cual se leera el formato con el que se construira el nombre del mapa.
+               Para mas informacion mirar el fichero "dat\jsigpac.formato".           
+
+
+Opciones para ENSAMBLAR mapas (-e):
+==================================
+java [-Xmx200m] JSigpac -e <-fnombre_fichero> <-efilFILAS> <-ecolCOLUMNAS> [-Jfactor_de_compresion_JPEG]
+                           [-mvMAPAS_EN_VERTICAL] [-mhMAPAS_EN_HORIZONTAL]
+
+-fnombre_fichero: Nombre de fichero elegido para la descarga de los
+		  cuadrantes. Entrecomillarlo si contiene espacios.
+-efilFILAS: Número de filas.
+-ecolCOLUMNAS: Número de columnas
+-Jfactor_de_compresion_JPEG: Valor entre 1 y 100, donde 100 indica que no se realiza compresión.
+Las siguientes dos opciones se utilizan si en lugar de querer generar un sólo mapa (que a veces 
+puede ser demasiado grande), se generan varios mapas o cuadrantones (tócate los....): 
+-mvMAPAS_EN_VERTICAL: Por defecto vale 1
+-mhMAPAS_EN_HORIZONTAL: Por defecto vale 1. 
+
+* Ejemplos de utilización:
+Descarga:
+java JSigpac -d -mORTO -h30 -q -x349150 -y4616700 -A12000 -fil6 -col8 -s -c -fPucela
+Ensamblado:
+java -Xmx200m JSigpac -e Pucela 6 8
+
+Opciones para descargar y ensamblar desde FICHERO (-f):
+======================================================
+java [-Xmx200m] JSigpac -f <fichero>
+
+fichero: Debera ser un fichero de extension ".jsi" que contiene los datos
+         necesarios para realizar una descarga de un mapa.
+
+Ejemplo: 
+    java -Xmx800m JSigpac -f"C:\mapas\descargas\Valladolid.jsi"
+    
+    
+Opciones para descargar y ensamblar desde un fichero de TRACK, RUTA o WAYPOINTS:
+===============================================================================
+java [-Xmx200m] JSigpac <fichero> [resto_de_opciones]
+
+fichero: Debera ser un fichero de track, ruta o waypoints válido de Compe o Ozi Explorer (".rte", 
+         ".plt", ".wpt", etc...)
+Las posibles opciones que pueden darse son :(por defecto se utilizarán las que se encuentran en
+el fichero "dat\jsigpac.defecto")
+-t Para indicar que solo queremos descargar los cuadrantes por los que va la ruta o track
+-mTIPOMAPA, se especifica el tipo de mapa y/o escala, donde TIPOMAPA es:
+        ORTO: Ortofoto
+        TOPO25: Mapa a escala 1:25000
+        TOPO200: Mapa a escala 1:200000
+        TOPO1250: Mapa a escala 1:1250000
+        TOPO2000_T: Mapa a escala 1:2000000
+        TOPO2000: Mapa con relieves
+-rRESOLUCION  Resolucion en metros/pixel
+-Jcompresion  Factor de compresion JPEG [0..100] 100 significa sin comprimir
+-c Genera los ficheros de calibración.
+-s Quita las marcas de aqua del Sigpac (obsoleta)
+-B Para que se borren los ficheros intermedios
+-Snombre_servidor  Servidor desde el que se realizaran las descargas. Por defecto se utilizará
+   el servidor nacional del SigPac.
+   Los posibles valores para "nombre_servidor" son (respetar mayúsculas y tildes):
+                      "Nacional - España" o "ESP",
+                      "PNOA" o "PNO"
+                      "Castilla y León" o "CYL",
+                      "Galicia" o "GAL",
+                      "Asturias" o "AST",
+                      "País Vasco" o "EUS",
+                      "Aragón" o "ARA",
+                      "Aragón SITAR" o "ARS",
+                      "Castilla La Mancha" o "CLM",
+                      "Murcia" o "MUR",
+                      "Canarias" o "CAN",
+                      "Canarias SITCAN" o "CSI"                      
+                      "Navarra" o "NAV",
+                      "Madrid" o "MAD",
+                      "La Rioja" o "RIO",
+                      "Mapa IGN" o "IGN",
+                      "Andalucía" o "AND",
+                      "Extremadura" o "EXT",
+                      "Castilla y León v3" o "CL3",
+                      "País Vasco v3" o "EU3",
+ 		      "Generalitat Valenciana" o "GVA"
+    		      
+
+
+Opciones para obtener el indice IBP de un track (.plt, .trk o .gpx):
+===================================================================
+java JSigpac -ibp modo fichero 
+java JSigpac -IBP modo fichero [-b]    (se genera un fichero con el informe con la extension ".html")
+
+modo: Los valores que puede tomar son: "BTT" o "Carretera"  (sin las comillas)
+fichero: Path absoluto o relativo al fichero con el track. Lo mejor es entrecomillarlo.
+-b: Para que no se abra el navegador con el informe del indice IBP.
+Ejemplo de uso de IBP:  java JSigpac -IBP BTT "C:\Mis tracks\pedaleando.gpx"
+
+
+3.- Ejemplos desde consola:
+    a) Mapa topografico 1:25000 asociado a una ruta con resolucion de 2 m/p, dejando un margen
+       de 300 metros y utilizando un factor de compresion JPEG de 60 )
+         java -Xmx800m JSigpac "C:\rutas\Valladolid.rte" -r2 -mTOPO25 -M300 -J60
+         *Nota: Tener en cuenta que para los parámetros que no sean facilitados, sus valores por
+                defecto seran leidos del ficheros "dat\jsigpac.defecto".
+       
+    b) Si queremos hacer lo mismo que en el ejemplo a) pero sólo descargando los cuadrantes por los que va
+       el track o la ruta, usar la opción "-t" y sería así:
+         java -Xmx800m JSigpac "C:\rutas\Valladolid.rte" -r2 -mTOPO25 -M300 -J60 -t
+             
+    c) Descarga y ensamblado de un tirón de un mapa topográfico que abarque un ancho de 12km y un
+       alto de 5km, dando las coordenadas de la esquina superior izquierda (-q):
+         java -Xmx800m JSigpac -x -SESP -DED50 -mTOPO25 -h30 -q -x365000 -y4760000 -r4 -A12000 -H5000 -c
+         
+         (ojo con la opción "-c" para que se generen los ficheros de calibración)
+         
+    d) Descarga de esa misma zona, pero en lugar de generar un sólo mapa, queremos que se creen 6 mapas,
+       en este caso, tres mapas horizontalmente y dos verticalmente. De esta forma, cada mapa abarcará
+       una extensión de 4km a lo ancho y 2.5km a lo alto:
+         - Primero realizamos la descarga de los cuadrantes:
+           java -Xmx800m JSigpac -d -SESP -DED50 -mTOPO25 -h30 -q -x365000 -y4760000 -r4 -A12000 -H5000 -c -f"mapas\miMapa"
+         - Una vez que tenemos todos los cuadrantes (en este caso son 78 cuadrantes), vemos que forman
+           un mosaico de 6 filas y 13 columnas. Para que cada uno de los seis cuadrantones se calibre por
+           separado, además de las opciones obligatorias para ensamblar, es necesario dar también las opciones
+           que utilizamos cuando realizamos la descarga.
+           Es decir, por un lado tenemos las opciones intrínsecas del ensamblado que son:
+                -f"mapas\miMapa" -efil6 -ecol13 -J70 -mv2 -mh3
+           Y por otro lado están las opciones que tenemos que pasarle para que pueda hacer la calibración de cada
+           cuadrantón y que son las que hemos utilizado cuando hemos realizado la descarga de los cuadrantes:
+                -SESP -DED50 -mTOPO25 -h30 -q -x365000 -y4760000 -r4 -A12000 -H5000 -c
+                
+           Así que el comando final quedaría así:
+           
+           java -Xmx800m JSigpac -e -f"mapas\miMapa" -efil6 -ecol13 -J70 -mv2 -mh3 -SESP -DED50 -mTOPO25 -h30 -q -x365000 -y4760000 -r4 -A12000 -H5000 -c          
+            
+           (No olvidarse de poner la opción "-c" para que genere los ficheros de calibración)
+           (Otra cosa: En este ejemplo no haría falta utilizar las comillas en la opción -f, pero si el directorio donde queremos que se creen los mapas contiene espacios, es necesario entrecomillarlo) 
